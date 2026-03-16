@@ -1,0 +1,13 @@
+{
+  "name": "do1-workspace",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix backend\" \"npm run dev --prefix my-app\"",
+    "dev:frontend": "npm run dev --prefix my-app",
+    "dev:backend": "npm run dev --prefix backend",
+    "build": "npm run build --prefix my-app"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
