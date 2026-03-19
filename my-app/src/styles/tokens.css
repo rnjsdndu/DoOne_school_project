@@ -1,5 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap");
+@import url("https://cdn.jsdelivr.net/npm/typeface-nanum-square-round@1.0.2/index.css");
+
 :root {
-  font-family: "SUIT", "Pretendard", "Noto Sans KR", sans-serif;
+  font-family: "NanumSquareRound", "NanumSquareRoundOTF", "Apple SD Gothic Neo", sans-serif;
+  --font-ko: "NanumSquareRound", "NanumSquareRoundOTF", "Apple SD Gothic Neo", sans-serif;
+  --font-en: "Quicksand", "Trebuchet MS", sans-serif;
+  --font-body: var(--font-ko);
+  --font-display: inherit;
   color: #18210f;
   background:
     radial-gradient(circle at top left, rgba(248, 197, 120, 0.35), transparent 26%),

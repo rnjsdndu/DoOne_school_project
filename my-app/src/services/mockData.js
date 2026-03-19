@@ -17,16 +17,28 @@ const records = [
     reason: '외근 일정이 길어 페이스를 놓쳤어요.',
   },
   { id: '3', date: '2026-03-10', missionTitle: '취침 전 스트레칭 5분', result: 'success' },
+  { id: '4', date: '2026-03-09', missionTitle: '아침 물 한 컵 마시기', result: 'success' },
+  { id: '5', date: '2026-03-08', missionTitle: '저녁 15분 독서', result: 'fail', reason: '약속이 길어져서 놓쳤어요.' },
+  { id: '6', date: '2026-03-07', missionTitle: '퇴근 후 계단 5층 오르기', result: 'success' },
+  { id: '7', date: '2026-03-06', missionTitle: '점심 전 스트레칭 3분', result: 'success' },
+  { id: '8', date: '2026-03-05', missionTitle: '자기 전 휴대폰 20분 끄기', result: 'fail', reason: '메시지 확인하다가 늦어졌어요.' },
 ]
 
-const calendarDays = Array.from({ length: 30 }, (_, index) => {
+function createCalendarMonth(year, month, dayCount, offset = 0) {
   const statusList = ['success', 'fail', 'pending']
-  return {
-    date: `2026-02-${String(index + 1).padStart(2, '0')}`,
+
+  return Array.from({ length: dayCount }, (_, index) => ({
+    date: `${year}-${String(month).padStart(2, '0')}-${String(index + 1).padStart(2, '0')}`,
     label: index + 1,
-    status: statusList[index % statusList.length],
-  }
-})
+    status: statusList[(index + offset) % statusList.length],
+  }))
+}
+
+const calendarDays = [
+  ...createCalendarMonth(2026, 1, 31, 0),
+  ...createCalendarMonth(2026, 2, 28, 1),
+  ...createCalendarMonth(2026, 3, 31, 2),
+]
 
 export async function fetchTodayMission() {
   return Promise.resolve(todayMission)

@@ -19,7 +19,7 @@ export function ProfilePage() {
 
   return (
     <div className="page-stack">
-      <SectionCard title="프로필" subtitle="기본 설정과 루틴 방향을 관리합니다.">
+      <SectionCard title="프로필">
         <form
           className="auth-form"
           onSubmit={(event) => {
@@ -48,7 +48,6 @@ export function ProfilePage() {
             </select>
           </label>
           {mutation.error ? <p className="error-text">{mutation.error.message}</p> : null}
-          {mutation.isSuccess ? <p className="helper-text">프로필이 저장되었습니다.</p> : null}
           <button className="button button--primary" type="submit" disabled={mutation.isPending}>
             저장
           </button>

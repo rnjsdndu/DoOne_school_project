@@ -11,9 +11,18 @@ body,
 body {
   margin: 0;
   min-width: 320px;
+  font-family: var(--font-body);
   color: var(--text);
   background: var(--bg);
   line-height: 1.55;
+}
+
+:lang(ko) {
+  font-family: var(--font-ko);
+}
+
+:lang(en) {
+  font-family: var(--font-en);
 }
 
 a {
@@ -76,25 +85,33 @@ button {
   gap: 12px;
 }
 
+.topbar__content {
+  flex: 1;
+  min-width: 0;
+}
+
 .topbar h1,
 .auth-panel h1,
 .hero-card__title,
 .section-card__title {
   margin: 0;
-  font-family: Georgia, "Times New Roman", serif;
-  letter-spacing: -0.02em;
+  font-family: inherit;
+  letter-spacing: -0.03em;
 }
 
 .topbar h1 {
-  font-size: 1.95rem;
-  line-height: 1.12;
-  max-width: 11ch;
+  font-size: 1.9rem;
+  line-height: 1.28;
+  max-width: 15ch;
+  word-break: keep-all;
+  text-wrap: balance;
 }
 
 .topbar__subtitle {
-  max-width: 32ch;
+  max-width: 34ch;
   color: var(--text-soft);
   font-size: 0.94rem;
+  word-break: keep-all;
 }
 
 .topbar__badge {
@@ -331,6 +348,7 @@ button {
   color: var(--text-soft);
   font-size: 0.88rem;
   font-weight: 600;
+  white-space: nowrap;
 }
 
 .button {
@@ -441,6 +459,10 @@ select:focus {
   color: #8d2f2f;
 }
 
+.record-more-button {
+  width: 100%;
+}
+
 .tab-button {
   padding: 10px 16px;
   background: #efe5d7;
@@ -451,6 +473,68 @@ select:focus {
 .tab-button.is-active {
   background: var(--primary);
   color: white;
+}
+
+.filter-dropdown {
+  position: relative;
+}
+
+.filter-dropdown__trigger,
+.filter-dropdown__option {
+  width: 100%;
+  text-align: left;
+}
+
+.filter-dropdown__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  background: #fff9f1;
+  color: var(--text);
+  font-weight: 700;
+  box-shadow: 0 10px 24px rgba(101, 73, 33, 0.06);
+}
+
+.filter-dropdown__trigger.is-open {
+  border-color: rgba(32, 73, 45, 0.24);
+}
+
+.filter-dropdown__icon {
+  color: var(--text-soft);
+  font-size: 0.82rem;
+}
+
+.filter-dropdown__menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  right: 0;
+  z-index: 5;
+  display: grid;
+  gap: 6px;
+  padding: 8px;
+  border-radius: 22px;
+  border: 1px solid var(--line);
+  background: rgba(255, 251, 245, 0.98);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 20px 36px rgba(72, 50, 21, 0.14);
+}
+
+.filter-dropdown__option {
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: transparent;
+  color: var(--text-soft);
+  font-weight: 700;
+}
+
+.filter-dropdown__option.is-active {
+  background: #eadfce;
+  color: var(--text);
 }
 
 .summary-grid {
@@ -480,6 +564,41 @@ select:focus {
 .summary-card__value span {
   font-size: 0.94rem;
   color: var(--text-muted);
+}
+
+.calendar-panel {
+  display: grid;
+  gap: 14px;
+  padding: 16px;
+  border-radius: 24px;
+  border: 1px solid rgba(24, 33, 15, 0.08);
+  background: rgba(255, 252, 247, 0.88);
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.calendar-header__month {
+  font-size: 1.05rem;
+  color: var(--text);
+}
+
+.calendar-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.calendar-controls select {
+  width: auto;
+  min-width: 88px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #fffdf9;
 }
 
 .calendar-legend {
@@ -515,33 +634,143 @@ select:focus {
   background: #e8dbc7;
 }
 
-.calendar-grid {
+.calendar-weekdays {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: 8px;
+  gap: 0;
+  border-top: 1px solid rgba(24, 33, 15, 0.1);
+  border-left: 1px solid rgba(24, 33, 15, 0.1);
+}
+
+.calendar-weekday {
+  display: grid;
+  place-items: center;
+  min-height: 34px;
+  padding: 4px 0;
+  border-right: 1px solid rgba(24, 33, 15, 0.1);
+  border-bottom: 1px solid rgba(24, 33, 15, 0.1);
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+  background: rgba(250, 244, 236, 0.95);
+}
+
+.calendar-table,
+.calendar-weeks {
+  display: grid;
+  gap: 0;
+}
+
+.calendar-table {
+  overflow: hidden;
+  border: 1px solid rgba(24, 33, 15, 0.12);
+  border-radius: 18px;
+  background: white;
+}
+
+.calendar-week {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0;
 }
 
 .calendar-cell {
-  min-height: 56px;
-  padding: 10px 8px;
-  border-radius: 18px;
-  border: 1px solid var(--line);
+  aspect-ratio: 1 / 1;
+  min-height: 44px;
+  padding: 8px 6px;
+  border-right: 1px solid rgba(24, 33, 15, 0.12);
+  border-bottom: 1px solid rgba(24, 33, 15, 0.12);
   display: grid;
-  place-items: end start;
+  align-content: space-between;
   font-weight: 700;
-  color: var(--text-soft);
+  color: var(--text);
+  background: #fffdf9;
+}
+
+.calendar-cell--empty {
+  background: #f7f1e8;
 }
 
 .calendar-cell--success {
-  background: rgba(141, 183, 134, 0.28);
+  box-shadow: inset 0 3px 0 #6e9f67;
 }
 
 .calendar-cell--fail {
-  background: rgba(217, 137, 137, 0.22);
+  box-shadow: inset 0 3px 0 #cf7474;
 }
 
 .calendar-cell--pending {
-  background: rgba(255, 255, 255, 0.52);
+  box-shadow: inset 0 3px 0 #d8cab5;
+}
+
+.calendar-cell__date {
+  display: inline-grid;
+  place-items: center;
+  min-width: 28px;
+  min-height: 28px;
+  font-size: 0.88rem;
+  border-radius: 999px;
+}
+
+.calendar-cell.is-today .calendar-cell__date {
+  background: rgba(36, 73, 46, 0.14);
+  color: var(--primary);
+  box-shadow: inset 0 0 0 1px rgba(36, 73, 46, 0.18);
+}
+
+.calendar-cell__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 4px;
+}
+
+.calendar-cell__marker {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  justify-self: end;
+}
+
+.calendar-cell__marker--success {
+  background: #6e9f67;
+}
+
+.calendar-cell__marker--fail {
+  background: #cf7474;
+}
+
+.calendar-cell__marker--pending {
+  background: #d8cab5;
+}
+
+.report-calendar-stack {
+  display: grid;
+  gap: 14px;
+  overflow: hidden;
+}
+
+.report-more-button {
+  width: 100%;
+}
+
+.report-summary-drawer {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateX(-18px);
+  transition: max-height 0.3s ease, opacity 0.25s ease, transform 0.25s ease;
+}
+
+.report-summary-drawer.is-visible {
+  max-height: 420px;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.report-summary-section {
+  display: grid;
+  gap: 10px;
 }
 
 .auth-page {

@@ -29,9 +29,9 @@ export function AuthPage() {
   }
 
   return (
-    <div className="auth-page">
+    <div className="auth-page" lang="ko">
       <div className="auth-panel">
-        <p className="eyebrow">DO1</p>
+        <p className="eyebrow" lang="en">DO1</p>
         <h1>하루 1개 미션으로 루틴을 단순하게 만듭니다.</h1>
         <p className="auth-panel__intro">복잡한 계획 대신, 오늘 반드시 해볼 한 가지에만 집중할 수 있게 도와주는 기록 서비스입니다.</p>
         <div className="tab-row">
@@ -53,16 +53,16 @@ export function AuthPage() {
         <form className="auth-form" onSubmit={handleSubmit}>
           <label>
             <span className="field-label">이메일</span>
-            <input type="email" placeholder="user@example.com" value={form.email} onChange={handleChange('email')} />
+            <input lang="en" type="email" placeholder="user@example.com" value={form.email} onChange={handleChange('email')} />
           </label>
           <label>
             <span className="field-label">비밀번호</span>
-            <input type="password" placeholder="password" value={form.password} onChange={handleChange('password')} />
+            <input lang="en" type="password" placeholder="password" value={form.password} onChange={handleChange('password')} />
           </label>
           {authMode === 'signup' ? (
             <label>
               <span className="field-label">닉네임</span>
-              <input type="text" placeholder="Doer" value={form.nickname} onChange={handleChange('nickname')} />
+              <input lang="en" type="text" placeholder="Doer" value={form.nickname} onChange={handleChange('nickname')} />
             </label>
           ) : null}
           {mutation.error ? <p className="error-text">{mutation.error.message}</p> : null}
@@ -70,7 +70,9 @@ export function AuthPage() {
             {authMode === 'signup' ? '회원가입' : '로그인'}
           </button>
         </form>
-        <p className="helper-text">데모 계정: user@example.com / password1234</p>
+        <p className="helper-text">
+          데모 계정: <span lang="en">user@example.com / password1234</span>
+        </p>
       </div>
     </div>
   )
