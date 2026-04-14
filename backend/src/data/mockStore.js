@@ -1,8 +1,6 @@
 import bcrypt from 'bcryptjs'
 import { randomUUID } from 'crypto'
 
-const today = new Date()
-
 function formatDate(date) {
   return date.toISOString().slice(0, 10)
 }
@@ -64,7 +62,9 @@ function ensureMissionForDate(userId, assignedDate) {
   return created
 }
 
-function seedLast30Days(userId) {
+export function seedLast30Days(userId, referenceDate = new Date()) {
+  const today = new Date(referenceDate)
+
   for (let offset = 29; offset >= 0; offset -= 1) {
     const date = new Date(today)
     date.setDate(today.getDate() - offset)

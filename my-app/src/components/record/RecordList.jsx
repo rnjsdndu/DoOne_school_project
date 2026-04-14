@@ -1,3 +1,14 @@
+const emotionLabels = {
+  tired: '지침',
+  anxious: '불안',
+  distracted: '산만',
+  frustrated: '답답함',
+}
+
+function getEmotionLabel(emotion) {
+  return emotionLabels[emotion] ?? emotion
+}
+
 export function RecordList({ records }) {
   if (!records.length) {
     return <p className="empty-state">아직 표시할 기록이 없습니다. 오늘 미션을 저장하면 이곳에 쌓입니다.</p>
@@ -15,7 +26,7 @@ export function RecordList({ records }) {
           </div>
           <p className="record-item__date">{record.date}</p>
           {record.reason ? <p className="record-item__reason">{record.reason}</p> : null}
-          {record.emotion ? <p className="record-item__emotion">감정: {record.emotion}</p> : null}
+          {record.emotion ? <p className="record-item__emotion">감정: {getEmotionLabel(record.emotion)}</p> : null}
         </article>
       ))}
     </div>

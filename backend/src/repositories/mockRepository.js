@@ -1,5 +1,5 @@
 import { randomUUID } from 'crypto'
-import { mockStore } from '../data/mockStore.js'
+import { mockStore, seedLast30Days } from '../data/mockStore.js'
 
 function withTemplate(mission) {
   const template = mockStore.missionTemplates.find((item) => item.id === mission.mission_template_id)
@@ -65,6 +65,7 @@ export function createMockSession({ userId, refreshToken, deviceName, expiresAt 
 }
 
 export function findMockTodayMission(userId, assignedDate) {
+  seedLast30Days(userId)
   const mission = mockStore.ensureMissionForDate(userId, assignedDate)
   const record = mockStore.missionRecords.find((item) => item.user_mission_id === mission.id)
   return {
@@ -105,6 +106,7 @@ export function findMockRecordByUserMissionId(userMissionId) {
 }
 
 export function findMockRecordsByUserId(userId, result) {
+  seedLast30Days(userId)
   return mockStore.missionRecords
     .filter((record) => record.user_id === userId && (!result || record.result === result))
     .map((record) => {
@@ -123,6 +125,7 @@ export function findMockRecordsByUserId(userId, result) {
 }
 
 export function fetchMockLast30DaysRecords(userId) {
+  seedLast30Days(userId)
   const days = []
   const now = new Date()
 
@@ -145,6 +148,7 @@ export function fetchMockLast30DaysRecords(userId) {
 export function assignMockMissionBatch() {
   const assignedDate = mockStore.formatDate(new Date())
   mockStore.users.forEach((user) => {
+    seedLast30Days(user.id)
     mockStore.ensureMissionForDate(user.id, assignedDate)
   })
   return {

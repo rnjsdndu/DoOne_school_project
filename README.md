@@ -2,6 +2,11 @@
 
 DO1 is a daily one-mission self-development service prototype.
 
+## Project Docs
+
+- [Service Blueprint](docs/do1-service-blueprint.md)
+- [DO1 웹사이트 테스트 일정 계획서](docs/do1-companion-test-schedule.md)
+
 ## Run
 
 ```bash
