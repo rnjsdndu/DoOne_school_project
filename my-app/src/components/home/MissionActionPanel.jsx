@@ -9,22 +9,23 @@ export function MissionActionPanel({ onSuccess, onFail, isLocked }) {
     if (!reason.trim()) {
       return
     }
+
     onFail({ emotion, reason })
   }
 
   return (
     <div className="action-panel">
-      <p className="section-note">오늘 미션을 끝냈다면 바로 성공으로 기록하고, 못 했다면 이유를 남겨 흐름을 추적하세요.</p>
+      <p className="section-note">오늘 미션을 못했다면 바로 실패로 기록하고, 이유를 남겨 흐름을 추적하세요.</p>
       <div className="button-row">
         <button className="button button--primary" onClick={onSuccess} disabled={isLocked}>
-          했음
+          성공
         </button>
         <button
           className="button button--secondary"
           onClick={() => setIsFailMode((prev) => !prev)}
           disabled={isLocked}
         >
-          안했음
+          실패
         </button>
       </div>
 

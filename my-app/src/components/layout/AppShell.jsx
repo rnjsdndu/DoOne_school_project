@@ -2,9 +2,9 @@ import { NavLink, Outlet, useLocation } from 'react-router-dom'
 
 const navItems = [
   { to: '/', label: '오늘' },
-  { to: '/records', label: '기록' },
-  { to: '/reports', label: '리포트' },
-  { to: '/profile', label: '설정' },
+  { to: '/records', label: '리스트' },
+  { to: '/reports', label: '30일 리포트' },
+  { to: '/profile', label: '마이페이지' },
 ]
 
 const pageCopy = {
@@ -15,22 +15,22 @@ const pageCopy = {
     badge: '오늘 1개',
   },
   '/records': {
-    eyebrow: 'MISSION LOG',
-    title: '쌓인 기록을 결과별로 가볍게 다시 살펴보세요.',
-    subtitle: '전체, 성공, 실패 기록을 빠르게 훑으면서 어떤 흐름으로 이어지고 있는지 확인할 수 있습니다.',
-    badge: '최근 기록',
+    eyebrow: 'MISSION LIST',
+    title: '쌓인 기록을 한눈에.',
+    subtitle: '전체·성공·실패별로 내 흐름을 빠르게 확인하세요.',
+    badge: '전체 기록',
   },
   '/reports': {
     eyebrow: 'ROUTINE REPORT',
-    title: '숫자와 달력으로 지금의 루틴 흐름을 한눈에 봅니다.',
-    subtitle: '성공률, 연속 성공, 날짜별 결과를 한 화면에서 확인하면서 최근 페이스를 정리할 수 있습니다.',
+    title: '숫자와 달력으로 보는 루틴.',
+    subtitle: '성공률, 연속 기록, 날짜별 결과를 한 화면에서 확인하세요.',
     badge: '30일 기준',
   },
   '/profile': {
-    eyebrow: 'MY SETTINGS',
-    title: '내 루틴 방향과 기본 정보를 편하게 다듬어보세요.',
-    subtitle: '닉네임, 목표 문구, 선호 카테고리를 조정해서 앞으로 받을 미션의 결을 맞출 수 있습니다.',
-    badge: '개인 설정',
+    eyebrow: 'MY PAGE',
+    title: '내 루틴 방향을 다듬기.',
+    subtitle: '닉네임, 목표, 선호 카테고리를 조정해서 미션의 결을 맞추세요.',
+    badge: '마이페이지',
   },
 }
 

@@ -3,6 +3,10 @@ import { create } from 'zustand'
 const storageKey = 'do1-auth'
 
 function loadAuthState() {
+  if (typeof window === 'undefined') {
+    return { user: null, token: null, isLoggedIn: false }
+  }
+
   try {
     const raw = window.localStorage.getItem(storageKey)
     if (!raw) {

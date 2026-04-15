@@ -27,8 +27,7 @@ export function HeroMissionCard({ mission }) {
         </div>
       </div>
       <div className="chip-row hero-card__meta">
-        <span className="chip">카테고리 {categoryLabel}</span>
-        <span className="chip">예상 {mission.estimateMinutes}분</span>
+        <span className="chip">{categoryLabel}</span>
       </div>
     </section>
   )

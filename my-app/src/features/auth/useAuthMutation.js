@@ -13,7 +13,11 @@ export function useAuthMutation(mode) {
     onSuccess: (data) => {
       setSession(data)
       queryClient.clear()
-      navigate('/', { replace: true })
+      if (mode === 'signup') {
+        setTimeout(() => navigate('/', { replace: true }), 1800)
+      } else {
+        navigate('/', { replace: true })
+      }
     },
   })
 }

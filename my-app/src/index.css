@@ -52,9 +52,9 @@ button {
 }
 
 .phone-shell {
-  width: min(100%, 390px);
-  min-height: min(844px, calc(100vh - 36px));
-  padding: 18px 18px 104px;
+  width: min(100%, 430px);
+  max-height: 900px;
+  padding: 18px;
   border-radius: 36px;
   border: 1px solid rgba(24, 33, 15, 0.08);
   background:
@@ -64,10 +64,14 @@ button {
     0 28px 70px rgba(72, 50, 21, 0.18),
     inset 0 1px 0 rgba(255, 255, 255, 0.7);
   position: relative;
-  overflow: hidden;
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  scrollbar-width: none;
 }
 
 .topbar {
+  flex-shrink: 0;
   padding: 6px 2px 18px;
 }
 
@@ -124,10 +128,33 @@ button {
   font-weight: 800;
 }
 
-.page-content,
 .page-stack {
   display: grid;
   gap: 16px;
+}
+
+main.page-content {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 30px;
+}
+
+.records-page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.records-page .section-card {
+  max-height: min(480px, calc(100vh - 260px));
+  display: flex;
+  flex-direction: column;
+}
+
+.records-page .section-card__body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
 }
 
 .section-card,
@@ -391,7 +418,11 @@ button {
 
 .action-panel,
 .fail-form,
-.record-list,
+.record-list {
+  display: grid;
+  gap: 14px;
+}
+
 .auth-form {
   display: grid;
   gap: 14px;
@@ -468,11 +499,35 @@ select:focus {
   background: #efe5d7;
   color: var(--text-soft);
   font-weight: 700;
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease,
+    color 160ms ease,
+    filter 160ms ease;
+}
+
+.tab-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 18px rgba(101, 73, 33, 0.08);
+  filter: brightness(1.02);
+}
+
+.tab-button:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: none;
+}
+
+.tab-button:focus-visible {
+  outline: 2px solid rgba(32, 73, 45, 0.35);
+  outline-offset: 2px;
 }
 
 .tab-button.is-active {
   background: var(--primary);
   color: white;
+  box-shadow: 0 12px 24px rgba(32, 73, 45, 0.18);
 }
 
 .filter-dropdown {
@@ -623,11 +678,11 @@ select:focus {
 }
 
 .calendar-dot--success {
-  background: #8db786;
+  background: rgba(45, 226, 21, 0.568);
 }
 
 .calendar-dot--fail {
-  background: #d98989;
+  background: rgba(255, 71, 71, 0.856);
 }
 
 .calendar-dot--pending {
@@ -638,8 +693,6 @@ select:focus {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
   gap: 0;
-  border-top: 1px solid rgba(24, 33, 15, 0.1);
-  border-left: 1px solid rgba(24, 33, 15, 0.1);
 }
 
 .calendar-weekday {
@@ -647,12 +700,17 @@ select:focus {
   place-items: center;
   min-height: 34px;
   padding: 4px 0;
-  border-right: 1px solid rgba(24, 33, 15, 0.1);
-  border-bottom: 1px solid rgba(24, 33, 15, 0.1);
+  border-right: 1px solid rgba(24, 33, 15, 0.08);
+  border-bottom: 1px solid rgba(24, 33, 15, 0.08);
+  border-radius: 0;
   color: var(--text-muted);
   font-size: 0.82rem;
   font-weight: 700;
-  background: rgba(250, 244, 236, 0.95);
+  background: rgba(255, 255, 255, 0.84);
+}
+
+.calendar-weekday:last-child {
+  border-right: 0;
 }
 
 .calendar-table,
@@ -662,10 +720,10 @@ select:focus {
 }
 
 .calendar-table {
-  overflow: hidden;
+  padding: 0;
   border: 1px solid rgba(24, 33, 15, 0.12);
-  border-radius: 18px;
-  background: white;
+  border-radius: 0;
+  background: rgba(24, 33, 15, 0.08);
 }
 
 .calendar-week {
@@ -676,72 +734,64 @@ select:focus {
 
 .calendar-cell {
   aspect-ratio: 1 / 1;
-  min-height: 44px;
-  padding: 8px 6px;
-  border-right: 1px solid rgba(24, 33, 15, 0.12);
-  border-bottom: 1px solid rgba(24, 33, 15, 0.12);
-  display: grid;
-  align-content: space-between;
+  padding: 8px;
+  border-right: 1px solid rgba(24, 33, 15, 0.08);
+  border-bottom: 1px solid rgba(24, 33, 15, 0.08);
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
   font-weight: 700;
   color: var(--text);
-  background: #fffdf9;
+  background: rgba(255, 253, 249, 0.98);
+  box-shadow: none;
+}
+
+.calendar-week .calendar-cell:nth-child(7n) {
+  border-right: 0;
+}
+
+.calendar-weeks .calendar-week:last-child .calendar-cell {
+  border-bottom: 0;
 }
 
 .calendar-cell--empty {
-  background: #f7f1e8;
-}
-
-.calendar-cell--success {
-  box-shadow: inset 0 3px 0 #6e9f67;
-}
-
-.calendar-cell--fail {
-  box-shadow: inset 0 3px 0 #cf7474;
-}
-
-.calendar-cell--pending {
-  box-shadow: inset 0 3px 0 #d8cab5;
+  background: rgba(247, 241, 232, 0.82);
+  opacity: 0.9;
 }
 
 .calendar-cell__date {
-  display: inline-grid;
-  place-items: center;
-  min-width: 28px;
-  min-height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
   font-size: 0.88rem;
-  border-radius: 999px;
+  line-height: 1;
+  border-radius: 0;
 }
 
 .calendar-cell.is-today .calendar-cell__date {
-  background: rgba(36, 73, 46, 0.14);
   color: var(--primary);
+  font-weight: 800;
+}
+
+.calendar-cell.is-today {
   box-shadow: inset 0 0 0 1px rgba(36, 73, 46, 0.18);
 }
 
-.calendar-cell__top {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 4px;
+.calendar-cell--success {
+  background: rgba(45, 226, 21, 0.568);
 }
 
-.calendar-cell__marker {
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  justify-self: end;
+.calendar-cell--fail {
+  background: rgba(255, 71, 71, 0.856);
 }
 
-.calendar-cell__marker--success {
-  background: #6e9f67;
-}
-
-.calendar-cell__marker--fail {
-  background: #cf7474;
-}
-
-.calendar-cell__marker--pending {
-  background: #d8cab5;
+.calendar-cell--pending {
+  background: rgba(216, 202, 181, 0.08);
 }
 
 .report-calendar-stack {
@@ -781,8 +831,45 @@ select:focus {
 }
 
 .auth-panel {
-  width: min(100%, 390px);
+  width: min(100%, 500px);
   padding: 24px;
+}
+
+.auth-success {
+  display: grid;
+  gap: 8px;
+  padding: 32px 0;
+  text-align: center;
+  animation: auth-success-in 0.4s ease both;
+}
+
+.auth-success__title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--primary);
+  letter-spacing: -0.02em;
+}
+
+.auth-success__sub {
+  color: var(--text-soft);
+  font-size: 0.94rem;
+}
+
+@keyframes auth-success-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.auth-field-extra {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.35s ease, opacity 0.25s ease;
+}
+
+.auth-field-extra.is-visible {
+  max-height: 120px;
+  opacity: 1;
 }
 
 .auth-panel h1 {
@@ -800,6 +887,16 @@ select:focus {
   color: var(--danger);
 }
 
+.error-stack {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: rgba(24, 33, 15, 0.06);
+  color: var(--text-soft);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
 .lock-message {
   margin-top: 8px;
   padding: 14px 16px;
@@ -808,10 +905,6 @@ select:focus {
 }
 
 .bottom-nav {
-  position: absolute;
-  left: 18px;
-  right: 18px;
-  bottom: 18px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 8px;
@@ -827,10 +920,10 @@ select:focus {
   display: grid;
   place-items: center;
   min-height: 44px;
-  padding: 0 8px;
+  padding: 0 4px;
   color: var(--text-soft);
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-weight: 700;
 }
 
@@ -850,9 +943,8 @@ select:focus {
 
   .phone-shell {
     width: 100%;
-    min-height: 100vh;
     border-radius: 0;
-    padding-bottom: 100px;
+    padding: 18px;
   }
 
   .summary-grid,

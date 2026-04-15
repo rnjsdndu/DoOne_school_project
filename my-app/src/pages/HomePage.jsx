@@ -8,12 +8,31 @@ import {
 import { useTodayMissionQuery } from '../features/mission/useTodayMissionQuery'
 
 export function HomePage() {
-  const { data: mission, isLoading } = useTodayMissionQuery()
+  const { data: mission, isLoading, isError, error, refetch } = useTodayMissionQuery()
   const successMutation = useMissionSuccessMutation()
   const failMutation = useMissionFailMutation()
 
-  if (isLoading || !mission) {
-    return null
+  if (isLoading || (!mission && !isError)) {
+    return (
+      <div className="page-stack">
+        <SectionCard title="오늘 미션" subtitle="가져오는 중입니다. 잠시만 기다려 주세요.">
+          <p className="empty-state">오늘의 미션을 불러오고 있어요.</p>
+        </SectionCard>
+      </div>
+    )
+  }
+
+  if (isError) {
+    return (
+      <div className="page-stack">
+        <SectionCard title="오늘 미션" subtitle="미션을 불러오는 데 실패했어요.">
+          <p className="error-text">{error.message}</p>
+          <button className="button button--ghost" onClick={() => refetch()} type="button">
+            다시 시도
+          </button>
+        </SectionCard>
+      </div>
+    )
   }
 
   const isLocked = mission.status === 'success' || mission.status === 'fail'

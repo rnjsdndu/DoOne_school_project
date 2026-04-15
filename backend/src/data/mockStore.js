@@ -94,11 +94,11 @@ export function seedLast30Days(userId, referenceDate = new Date()) {
   }
 }
 
-const demoPasswordHash = await bcrypt.hash('password1234', 10)
+const demoPasswordHash = await bcrypt.hash('demo', 10)
 
 const demoUser = {
   id: 'demo-user-id',
-  email: 'user@example.com',
+  email: 'demo.gmail.com',
   password_hash: demoPasswordHash,
   nickname: 'Doer',
   goal_message: '하루 한 번, 작게라도 해낸다.',
