@@ -2,6 +2,9 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
+console.log('USE_MOCK_DB:', process.env.USE_MOCK_DB)
+console.log('useMockDb:', process.env.USE_MOCK_DB !== 'false')
+
 export const env = {
   port: Number(process.env.PORT || 4000),
   databaseUrl: process.env.DATABASE_URL || '',

@@ -1,7 +1,7 @@
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 
 const navItems = [
-  { to: '/', label: '오늘' },
+  { to: '/', label: '홈' },
   { to: '/records', label: '리스트' },
   { to: '/reports', label: '30일 리포트' },
   { to: '/profile', label: '마이페이지' },
